@@ -327,6 +327,8 @@ npm run dev</code></pre>
       <code>PHILOTAS_URL</code>.
     </p>
     <pre><code>npx -y -p @philotas/mcp philotas-mcp doctor</code></pre>
+<p>Against the public trial, bootstrap a read-only guest session:</p>
+<pre><code>PHILOTAS_URL=https://trial.philotas.com PHILOTAS_GUEST=1 npx -y -p @philotas/mcp philotas-mcp doctor</code></pre>
     <p>
       The <code>doctor</code> command checks that <code>PHILOTAS_URL</code> is set and that the
       deployment answers, then prints a pass or fail per check and exits 0 or 1.
