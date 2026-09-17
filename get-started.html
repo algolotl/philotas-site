@@ -323,10 +323,10 @@ npm run dev</code></pre>
     <h2>MCP server</h2>
     <p>
       philotas-mcp exposes read-only tools against a running deployment over the Model Context
-      Protocol. Install it with <code>npx philotas-mcp</code> and point it at a deployment with
+      Protocol. Install it with <code>npx -y @philotas/mcp</code> and point it at a deployment with
       <code>PHILOTAS_URL</code>.
     </p>
-    <pre><code>npx philotas-mcp doctor</code></pre>
+    <pre><code>npx -y -p @philotas/mcp philotas-mcp doctor</code></pre>
     <p>
       The <code>doctor</code> command checks that <code>PHILOTAS_URL</code> is set and that the
       deployment answers, then prints a pass or fail per check and exits 0 or 1.
@@ -338,7 +338,7 @@ npm run dev</code></pre>
   "mcpServers": {
     "philotas": {
       "command": "npx",
-      "args": ["philotas-mcp"],
+      "args": ["-y", "@philotas/mcp"],
       "env": { "PHILOTAS_URL": "http://localhost:8788" }
     }
   }
@@ -350,7 +350,7 @@ npm run dev</code></pre>
   "mcpServers": {
     "philotas": {
       "command": "npx",
-      "args": ["philotas-mcp"],
+      "args": ["-y", "@philotas/mcp"],
       "env": { "PHILOTAS_URL": "http://localhost:8788" }
     }
   }
