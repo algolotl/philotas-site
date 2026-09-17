@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contributing · Bluebird Philotas</title>
+  <meta name="description" content="How to contribute to Philotas: connector authoring, tests, and the Developer Certificate of Origin.">
+  <link rel="canonical" href="https://philotas.com/contributing.html">
+  <meta property="og:title" content="Contributing · Bluebird Philotas">
+  <meta property="og:description" content="How to contribute to Philotas: connector authoring, tests, and the Developer Certificate of Origin.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://philotas.com/contributing.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <style>
+:root {
+    --brand: #5D4FFF;
+    --bloom: #0787D9;
+    --cyan: #7EF9FF;
+    --navy: #00294B;
+    --page: #FFFFFF;
+    --surface: #F7F9FC;
+    --raised: #EDF1FA;
+    --ink: #0F1E33;
+    --ink-2: #4A5A72;
+    --muted: #7B8CA4;
+    --border: rgba(15, 30, 51, 0.10);
+    --border-strong: rgba(15, 30, 51, 0.18);
+    --amber: #D97706;
+    --max: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "DM Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar { display: flex; align-items: center; gap: 14px; height: 64px; }
+  .mark { display: flex; align-items: center; gap: 10px; }
+  .bb-mark { width: 34px; height: 34px; flex: none; border-radius: 4px; }
+  .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .wordmark .name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+  .product {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.24em;
+    color: var(--brand); text-transform: uppercase; padding-top: 3px;
+  }
+  .wordmark:hover { text-decoration: none; }
+  .bar nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .bar nav a { color: var(--ink-2); font-size: 14px; }
+  .bar nav a:hover { color: var(--ink); text-decoration: none; }
+  .cta {
+    background: var(--brand); color: #fff !important; padding: 9px 18px;
+    border-radius: 5px; font-size: 14px; font-weight: 500;
+  }
+  .cta:hover { background: var(--bloom); text-decoration: none !important; }
+
+  section { padding: 76px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: 0; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brand); font-weight: 500; margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(34px, 5.2vw, 54px); line-height: 1.08;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 22px;
+  }
+  h2 {
+    font-size: clamp(25px, 3.4vw, 33px); line-height: 1.2;
+    letter-spacing: -0.02em; font-weight: 700; margin: 0 0 18px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 0 0 9px; letter-spacing: -0.01em; }
+  p { margin: 0 0 18px; color: var(--ink-2); max-width: 68ch; }
+  .lead { font-size: 19px; color: var(--ink); max-width: 62ch; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 26px; margin-top: 34px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 24px; }
+  .card p { font-size: 14.5px; margin-bottom: 0; }
+  .card .tag {
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brand); display: block; margin-bottom: 11px;
+  }
+
+  .tbl-scroll { overflow-x: auto; margin-top: 30px; border: 1px solid var(--border); border-radius: 7px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 560px; }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th { background: var(--raised); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td { color: var(--ink-2); }
+  td.k { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .vs td:last-child { color: var(--ink); }
+
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px;
+         background: var(--raised); padding: 1px 6px; border-radius: 3px; color: var(--bloom); }
+
+  footer.site { padding: 42px 0 58px; color: var(--muted); font-size: 13px; }
+  footer.site p { color: var(--muted); font-size: 13px; max-width: 78ch; }
+
+  .pagehead { padding: 76px 0 52px; border-bottom: 1px solid var(--border); }
+  .pagehead h1 { margin-bottom: 14px; }
+  .pagehead .lead { font-size: 19px; max-width: 62ch; }
+
+  pre {
+    background: var(--navy); color: #E7ECF6; padding: 18px 20px;
+    border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6;
+    margin: 16px 0 22px; max-width: 720px;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  .plain ul { margin: 0 0 18px; padding-left: 20px; color: var(--ink-2); }
+  .plain li { margin-bottom: 8px; }
+
+  @media (max-width: 640px) {
+    section { padding: 52px 0; }
+    .bar nav a:not(.cta) { display: none; }
+    .pagehead { padding: 52px 0 40px; }
+  }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <div class="mark">
+      <a class="wordmark" href="index.html">
+        <img class="bb-mark" src="assets/bb-logo.png" alt="Bluebird" width="34" height="34">
+        <span class="name">Bluebird</span>
+        <span class="product">Philotas</span>
+      </a>
+    </div>
+    <nav>
+      <a href="get-started.html">Get started</a>
+      <a href="index.html#capability">Capability</a>
+      <a href="index.html#ai">AI &amp; ML</a>
+      <a href="index.html#support">Support</a>
+      <a href="community.html">Community</a>
+      <a href="index.html#trial">Trial</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="eyebrow">Contributing</div>
+    <h1>Contribute</h1>
+    <p class="lead">Connectors are the fastest way in. Tests run with the tools already in the repository.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>How to contribute</h2>
+    <p>
+      Fork the repository, create a branch, and open a pull request. Keep changes small and
+      describe what they do. Issues are tracked in the public repository at
+      <a href="https://github.com/algolotl/philotas">github.com/algolotl/philotas</a>.
+    </p>
+    <p>
+      Every contribution is signed off under the Developer Certificate of Origin (DCO). Add a
+      <code>Signed-off-by</code> line to your commits with your name and email:
+    </p>
+    <pre><code>git commit -s -m "Add a connector for a ferry schedule"</code></pre>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Connector authoring</h2>
+    <p>
+      A connector is one file that declares how it pulls, from an API or a lake query, and
+      returns GeoJSON. From there it flows into the cache, the poller, the snapshot store, the
+      layer list, the ontology and the knowledge graph without further wiring.
+    </p>
+    <p>
+      philotas-mcp can scaffold and validate a connector. Start it with <code>npx philotas-mcp</code>,
+      then use the <code>scaffold_connector</code> tool, which takes a name, a kind (api or
+      datalake) and an endpoint, to write a template into your working directory. Use
+      <code>validate_connector</code> with a path to run the connector's pull against its own
+      schema.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Tests</h2>
+    <pre><code>npm test                 # root, Node test runner
+cd ingest && npm test    # ingest suite
+node --test test/        # a single directory
+python -m pytest detect/test</code></pre>
+    <p>Run the tests before you open a pull request.</p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p>
+      Philotas is licensed under the Apache License 2.0. Copyright Algolotl.
+      Philotas and Bluebird Philotas are trademarks.
+    </p>
+    <p>
+      <a href="https://github.com/algolotl/philotas">Repository</a> ·
+      <a href="get-started.html">Get started</a> ·
+      <a href="licensing.html">Licensing</a> ·
+      <a href="security.html">Security</a> ·
+      <a href="contributing.html">Contributing</a> ·
+      <a href="community.html">Community</a>
+    </p>
+    <p>
+      This software displays data retrieved at runtime from third-party sources, owned by their
+      respective providers, including OpenSky Network, the adsb.fi community network, CelesTrak,
+      Transport Canberra, NSW Rural Fire Service, the U.S. Geological Survey, Geoscience Australia,
+      the Australian Bureau of Meteorology, The GDELT Project, NASA JPL (Deep Space Network) and
+      NASA EONET.
+    </p>
+    <p>
+      The OpenSky Network's terms restrict its data to non-profit research and education; a live
+      operational deployment requires a written licence from OpenSky. This software treats OpenSky
+      as an opt-in, bring-your-own-credentials source and never enables it by default.
+    </p>
+    <p>
+      Fire hotspot detections are courtesy of NASA's Land, Atmosphere Near real-time Capability
+      for EOS (LANCE, https://earthdata.nasa.gov/lance), part of NASA's Earth Observing System Data
+      and Information System (EOSDIS). NASA does not endorse this product. Base map tiles © CARTO
+      and © OpenStreetMap contributors. Review each provider's terms before relying on their data.
+    </p>
+    <p>contact@bluebirdadvisory.com.au</p>
+  </div>
+</footer>
+</body>
+</html>

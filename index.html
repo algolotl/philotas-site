@@ -1,0 +1,658 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bluebird Philotas · Open-Source Common Operating Picture</title>
+  <meta name="description" content="Philotas is an open-source common operating picture. The Apache-2.0 core fuses your data, the open record and subscribed feeds into one decision-ready view. Run it yourself or buy a support license.">
+  <link rel="canonical" href="https://philotas.com/">
+  <meta property="og:title" content="Bluebird Philotas · Open-Source Common Operating Picture">
+  <meta property="og:description" content="Philotas is an open-source common operating picture. The Apache-2.0 core fuses your data, the open record and subscribed feeds into one decision-ready view. Run it yourself or buy a support license.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://philotas.com/">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <style>
+:root {
+    --brand: #5D4FFF;
+    --bloom: #0787D9;
+    --cyan: #7EF9FF;
+    --navy: #00294B;
+    --page: #FFFFFF;
+    --surface: #F7F9FC;
+    --raised: #EDF1FA;
+    --ink: #0F1E33;
+    --ink-2: #4A5A72;
+    --muted: #7B8CA4;
+    --border: rgba(15, 30, 51, 0.10);
+    --border-strong: rgba(15, 30, 51, 0.18);
+    --amber: #D97706;
+    --max: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "DM Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar { display: flex; align-items: center; gap: 14px; height: 64px; }
+  .mark { display: flex; align-items: center; gap: 10px; }
+  .bb-mark { width: 34px; height: 34px; flex: none; border-radius: 4px; }
+  .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .wordmark .name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+  .product {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.24em;
+    color: var(--brand); text-transform: uppercase; padding-top: 3px;
+  }
+  .wordmark:hover { text-decoration: none; }
+  .bar nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .bar nav a { color: var(--ink-2); font-size: 14px; }
+  .bar nav a:hover { color: var(--ink); text-decoration: none; }
+  .cta {
+    background: var(--brand); color: #fff !important; padding: 9px 18px;
+    border-radius: 5px; font-size: 14px; font-weight: 500;
+  }
+  .cta:hover { background: var(--bloom); text-decoration: none !important; }
+
+  .ribbon {
+    background: var(--navy); border-bottom: 1px solid var(--border);
+    font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.88); padding: 9px 0; text-align: center;
+  }
+
+  section { padding: 76px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: 0; }
+  section[id] { scroll-margin-top: 78px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brand); font-weight: 500; margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(34px, 5.2vw, 54px); line-height: 1.08;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 22px;
+  }
+  h2 {
+    font-size: clamp(25px, 3.4vw, 33px); line-height: 1.2;
+    letter-spacing: -0.02em; font-weight: 700; margin: 0 0 18px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 0 0 9px; letter-spacing: -0.01em; }
+  p { margin: 0 0 18px; color: var(--ink-2); max-width: 68ch; }
+  .lead { font-size: 19px; color: var(--ink); max-width: 62ch; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  .hero { padding: 92px 0 76px; }
+  .hero .lead { font-size: 20px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn-ghost {
+    border: 1px solid var(--border-strong); color: var(--ink); padding: 9px 18px;
+    border-radius: 5px; font-size: 14px;
+  }
+  .btn-ghost:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 1px;
+           background: var(--border); border: 1px solid var(--border); border-radius: 7px;
+           overflow: hidden; margin-top: 48px; }
+  .stat { background: var(--surface); padding: 20px 18px; }
+  .stat .n { font-size: 29px; font-weight: 700; letter-spacing: -0.02em; display: block; }
+  .stat .l { font-size: 12px; color: var(--muted); line-height: 1.4; display: block; margin-top: 3px; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 26px; margin-top: 34px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 24px; }
+  .card p { font-size: 14.5px; margin-bottom: 0; }
+  .card .tag {
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brand); display: block; margin-bottom: 11px;
+  }
+
+  .tbl-scroll { overflow-x: auto; margin-top: 30px; border: 1px solid var(--border); border-radius: 7px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 560px; }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th { background: var(--raised); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td { color: var(--ink-2); }
+  td.k { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .vs td:last-child { color: var(--ink); }
+
+  .note {
+    border-left: 2px solid var(--amber); background: rgba(217, 119, 6, 0.09);
+    padding: 15px 20px; border-radius: 0 5px 5px 0; margin-top: 30px;
+  }
+  .note p { margin: 0; font-size: 14.5px; }
+  .note .h { color: var(--amber); font-size: 11px; letter-spacing: 0.13em;
+             text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 5px; }
+
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px;
+         background: var(--raised); padding: 1px 6px; border-radius: 3px; color: var(--bloom); }
+
+  .trial { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 9px; padding: 40px; margin-top: 8px; }
+  .trial h2 { margin-bottom: 12px; }
+
+  .regions { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--border); }
+  .regions-lede { color: var(--muted); font-size: 14px; max-width: 68ch; margin: 0 0 22px; }
+  .region-group h3 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 9px;
+  }
+  .region-group ul { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .region-group li { margin: 0; }
+  .region-group a {
+    display: inline-block; padding: 6px 12px; border-radius: 999px;
+    background: var(--raised); border: 1px solid var(--border);
+    color: var(--ink-2); font-size: 14px; line-height: 1.3; text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .region-group a:hover, .region-group a:focus-visible {
+    border-color: var(--brand); color: var(--ink); background: var(--navy); text-decoration: none;
+  }
+  .region-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 26px; }
+  @media (max-width: 640px) { .region-cols { grid-template-columns: 1fr; } }
+
+  footer.site { padding: 42px 0 58px; color: var(--muted); font-size: 13px; }
+  footer.site p { color: var(--muted); font-size: 13px; max-width: 78ch; }
+
+  .pagehead { padding: 76px 0 52px; border-bottom: 1px solid var(--border); }
+  .pagehead h1 { margin-bottom: 14px; }
+  .pagehead .lead { font-size: 19px; max-width: 62ch; }
+
+  pre {
+    background: var(--navy); color: #E7ECF6; padding: 18px 20px;
+    border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6;
+    margin: 16px 0 22px; max-width: 720px;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 30px; }
+  .tier { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 26px; display: flex; flex-direction: column; }
+  .tier-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 5px; }
+  .tier-tag { font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--brand); font-weight: 500; margin-bottom: 16px; }
+  .tier ul { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14.5px; }
+  .tier li { margin-bottom: 7px; }
+
+  .faq { margin-top: 26px; border-top: 1px solid var(--border); }
+  .faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+  .faq summary { cursor: pointer; font-weight: 500; color: var(--ink); font-size: 16px; }
+  .faq summary:hover { color: var(--brand); }
+  .faq details p { margin: 10px 0 0; font-size: 15px; }
+
+  @media (max-width: 640px) {
+    section { padding: 52px 0; }
+    .bar nav a:not(.cta) { display: none; }
+    .trial { padding: 26px; }
+    .pagehead { padding: 52px 0 40px; }
+  }
+  </style>
+</head>
+<body id="top">
+<header class="site">
+  <div class="wrap bar">
+    <div class="mark">
+      <a class="wordmark" href="#top">
+        <img class="bb-mark" src="assets/bb-logo.png" alt="Bluebird" width="34" height="34">
+        <span class="name">Bluebird</span>
+        <span class="product">Philotas</span>
+      </a>
+    </div>
+    <nav>
+      <a href="#start">Get started</a>
+      <a href="#capability">Capability</a>
+      <a href="#ai">AI &amp; ML</a>
+      <a href="#support">Support</a>
+      <a href="#community">Community</a>
+      <a href="#trial">Trial</a>
+    </nav>
+  </div>
+</header>
+
+<div class="ribbon">Open-source common operating picture · Apache-2.0 core</div>
+
+<!-- ============ hero ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Open source, Apache-2.0</div>
+    <h1>Your data says what you own.<br>Open sources say what is happening to it.</h1>
+    <p class="lead">
+      Philotas is an open-source common operating picture. The core is Apache-2.0: clone it, run
+      it on your laptop, point it at your data, build the picture you need. Enterprises that deploy
+      Philotas into production buy a support license: deployment hardening, accredited
+      environments, licensed data feeds, SLA-backed support.
+    </p>
+    <div class="hero-actions">
+      <a href="get-started.html" class="cta">Get started</a>
+      <a href="https://trial.philotas.com/" class="btn-ghost">View trial</a>
+      <a href="mailto:contact@bluebirdadvisory.com.au" class="btn-ghost">Talk to us</a>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><span class="n">12</span><span class="l">live source types in the reference build</span></div>
+      <div class="stat"><span class="n">5</span><span class="l">transport modes, realtime positions</span></div>
+      <div class="stat"><span class="n">24 m</span><span class="l">median position projection error, measured</span></div>
+      <div class="stat"><span class="n">133</span><span class="l">tests covering the analytical layer</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ open core ============ -->
+<section id="start">
+  <div class="wrap">
+    <div class="eyebrow">Open core</div>
+    <h2>The core is open source, Apache-2.0</h2>
+    <p class="lead">
+      Clone the repository, run it on your laptop, point it at your data. Everything that makes
+      the operating picture work ships in the core under the Apache-2.0 licence.
+    </p>
+
+    <div class="cols">
+      <div class="card">
+        <span class="tag">The application</span>
+        <p>The map, the layers, entity resolution, search, alerting rules, and the operator interface.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Ingest</span>
+        <p>The pollers that pull open and subscribed sources into the picture, region by region.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Detection service</span>
+        <p>Deterministic anomaly detection over position series, with AutoGluon as the default engine.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Ontology engine</span>
+        <p>The resolver that links entities across sources, with confidence and evidence on every edge.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Connector framework</span>
+        <p>One file per source, against an API or a lake query, returning GeoJSON.</p>
+      </div>
+      <div class="card">
+        <span class="tag">RBAC</span>
+        <p>Roles from viewer to administrator, enforced server-side per route.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Workspaces</span>
+        <p>Case-scoped access to the semantic corpus, applied in the query itself.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Replay</span>
+        <p>Recorded snapshots you can scrub back through to reconstruct how a situation developed.</p>
+      </div>
+    </div>
+
+    <p style="margin-top:26px">
+      Get the code at <a href="https://github.com/algolotl/philotas">github.com/algolotl/philotas</a>,
+      then follow the <a href="get-started.html">quickstart</a> to run it.
+    </p>
+  </div>
+</section>
+
+<!-- ============ capability ============ -->
+<section id="capability">
+  <div class="wrap">
+    <div class="eyebrow">Capability</div>
+    <h2>What an operator actually does with it</h2>
+    <p>
+      Three things, in the order people reach for them.
+    </p>
+
+    <div class="cols">
+      <div class="card">
+        <span class="tag">See</span>
+        <h3>One live picture</h3>
+        <p>
+          Vessels, ferries, trains, buses, light rail, metro, aircraft, satellites overhead,
+          fire and emergency incidents, seismic activity, weather observations and news, drawn
+          on a 3D globe with a 2D fallback. Layers group by domain. Each one reports its own
+          freshness, and a layer serving anything other than live upstream data is marked as
+          such rather than shown as healthy.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">Connect</span>
+        <h3>An ontology that resolves</h3>
+        <p>
+          Sources arrive as separate feeds and leave as one model. A vessel resolves to the
+          berth it is alongside. A ground station resolves to the spacecraft it is downlinking
+          from, and that spacecraft to the satellite another source is tracking. A headline
+          resolves to the specific ship it names. Every edge carries its confidence, its method
+          and the evidence that produced it.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">Act</span>
+        <h3>Rules, actions, replay</h3>
+        <p>
+          Alerting rules over any layer and field, with rings drawn on the map. Operator
+          write-back to flag, task, dispatch or watch an entity, recorded to an audit trail and
+          optionally posted to an external system. Recorded snapshots you can scrub back
+          through to reconstruct how a situation developed. Written to the workflows you operate
+          by, so an operator acts inside the picture rather than around it.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ai ============ -->
+<section id="ai">
+  <div class="wrap">
+    <div class="eyebrow">AI and ML</div>
+    <h2>The model explains. It does not decide.</h2>
+    <p>
+      Operators get one live picture, a faster response when something happens, and an entity
+      under watch with the trail to reconstruct how the situation developed. The model assists
+      each step. It returns a verdict, a confidence and a reason; the operator decides.
+    </p>
+    <p>
+      Anomaly detection is deterministic arithmetic over a position series. A language model
+      never decides whether a vessel stopped transmitting, because a claim like that has to
+      survive being questioned, and "the AI flagged it" does not.
+    </p>
+
+    <div class="cols">
+      <div class="card">
+        <span class="tag">Deterministic</span>
+        <h3>Detection</h3>
+        <p>
+          Transmission gaps, loitering and sustained course deviation, each computed from the
+          vessel's own observed behaviour rather than a global threshold. A ferry reports every
+          few seconds and an anchored bulk carrier every few minutes, so one fixed number would
+          either alarm constantly or miss everything. Every event carries its arithmetic:
+          <code>stopped for 47min against a 90s observed median over 62 reports</code>.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">Adjudicated</span>
+        <h3>Where the model earns its place</h3>
+        <p>
+          Judgement, where arithmetic runs out. Whether a headline refers to this specific
+          vessel or merely to shipping in general. Whether two sources spelling a name
+          differently describe the same hull. The model returns a verdict, a calibrated
+          confidence and a reason, all of which are stored and shown. The verdict informs the
+          operator's decision; it does not make it.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">Auditable</span>
+        <h3>Visible method</h3>
+        <p>
+          Each resolved link records whether a model produced it or the deterministic fallback
+          did, and the interface shows which. When the model is unreachable the ontology still
+          resolves, by heuristic, and says so. Correlations are labelled as correlations, in
+          those words.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">Governed</span>
+        <h3>Model output is checked before you see it</h3>
+        <p>
+          Open sources are untrusted text, and a document can carry instructions aimed at the
+          model reading it. Every generated summary and hypothesis passes a governance step
+          first: deterministic rules reject fabricated citations, unhedged causal claims and
+          attributions of fault, then a separate isolated pass reviews what survived. The
+          reviewing pass never receives the source text, which is what stops an instruction
+          buried in an article reaching it. On a hypothesis the check fails closed — if it
+          cannot be verified it is not shown.
+        </p>
+      </div>
+      <div class="card">
+        <span class="tag">Measured</span>
+        <h3>Projection, with an error figure</h3>
+        <p>
+          Contacts are projected forward between reports by dead reckoning, so the picture
+          moves while the source is silent. Measured against 261 segments of real Sydney
+          Ferries movement: median error 24 m, 90th percentile 54 m, over gaps of about 15
+          seconds. A Sydney ferry is roughly 70 m long. Projected positions are marked as
+          projections.
+        </p>
+      </div>
+    </div>
+
+    <div class="note">
+      <span class="h">On sovereignty</span>
+      <p>
+        The adjudicating model runs against an OpenAI-compatible endpoint, which can be a model
+        you host on your own network. Nothing about the ontology requires a commercial API, and
+        the deployment described below runs the model on the same infrastructure as the
+        application.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ support ============ -->
+<section id="support">
+  <div class="wrap">
+    <div class="eyebrow">Support</div>
+    <h2>Run it yourself, or buy a support license</h2>
+    <p class="lead">
+      The core is free and complete. A support license covers what it takes to run Philotas in
+      production. Pricing is on request.
+    </p>
+
+    <div class="tiers">
+      <div class="tier">
+        <div class="tier-name">Community</div>
+        <div class="tier-tag">Free</div>
+        <ul>
+          <li>The Apache-2.0 core, in full.</li>
+          <li>GitHub Discussions, best-effort.</li>
+          <li>Issues and pull requests in the public repository.</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Standard</div>
+        <div class="tier-tag">Support license</div>
+        <ul>
+          <li>A named-organisation annual support license.</li>
+          <li>SLA-backed support.</li>
+          <li>Upgrade assurance across releases.</li>
+        </ul>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Enterprise</div>
+        <div class="tier-tag">Support license</div>
+        <ul>
+          <li>Air-gapped packaging.</li>
+          <li>Accreditation support.</li>
+          <li>Licensed-feed enablement.</li>
+          <li>Implementation.</li>
+        </ul>
+      </div>
+    </div>
+
+    <p style="margin-top:26px">
+      See <a href="pricing.html">pricing</a> for the tier inclusions and typical response times.
+      Pricing is on request.
+    </p>
+  </div>
+</section>
+
+<!-- ============ community ============ -->
+<section id="community">
+  <div class="wrap">
+    <div class="eyebrow">Community</div>
+    <h2>Built in the open</h2>
+    <p class="lead">
+      The repository, the issue tracker, and the roadmap are public. Contributions are welcome.
+    </p>
+
+    <div class="cols">
+      <div class="card">
+        <span class="tag">Repository</span>
+        <p>The code, tests, and issue tracker live at <a href="https://github.com/algolotl/philotas">github.com/algolotl/philotas</a>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Discussions</span>
+        <p>Questions and support in <a href="https://github.com/algolotl/philotas/discussions">GitHub Discussions</a>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Contributing</span>
+        <p>Connector authoring, tests, and the DCO: see <a href="contributing.html">how to contribute</a>.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Roadmap</span>
+        <p>Planned work is tracked in the repository: see <a href="community.html">the roadmap</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ trial ============ -->
+<section id="trial">
+  <div class="wrap">
+    <div class="trial">
+      <div class="eyebrow">Trial</div>
+      <h2>Open the picture</h2>
+      <p>
+        The trial shows the pattern working: a live operating picture on Sydney Harbour, one
+        example of the approach. A deployment puts the same picture on your data, in your
+        region, with your workflows.
+      </p>
+      <p>
+        The trial is read-only: you can move around it, select an entity, follow its resolved
+        connections, search the corpus and scrub back through recorded snapshots. Operator
+        write-back, rule changes and administration are disabled.
+      </p>
+      <div class="hero-actions">
+        <a href="https://trial.philotas.com/" class="cta">View trial</a>
+        <a href="mailto:contact@bluebirdadvisory.com.au" class="btn-ghost">Talk to us</a>
+      </div>
+
+      <div class="regions">
+        <p class="regions-lede">
+          Or open it somewhere specific. Eighty-three regions run from the one deployment and
+          these are a selection. A region nobody has looked at recently starts polling when you
+          open it, so give it a few seconds to fill.
+        </p>
+        <p class="regions-lede">
+          Sydney is where the pattern runs at its fullest: ships, ferries, aircraft, satellites,
+          fires, weather, news and the transport network, all feeding the one picture. Open it
+          first to see the feeds interact.
+        </p>
+
+        <div class="region-group">
+          <h3>Chokepoints</h3>
+          <ul>
+            <li><a href="https://trial.philotas.com/?region=hormuz">Strait of Hormuz</a></li>
+            <li><a href="https://trial.philotas.com/?region=suez">Suez Canal</a></li>
+            <li><a href="https://trial.philotas.com/?region=babelmandeb">Bab el-Mandeb</a></li>
+            <li><a href="https://trial.philotas.com/?region=gibraltar">Strait of Gibraltar</a></li>
+            <li><a href="https://trial.philotas.com/?region=dover">Dover Strait</a></li>
+            <li><a href="https://trial.philotas.com/?region=istanbul">Istanbul / Bosphorus</a></li>
+            <li><a href="https://trial.philotas.com/?region=taiwanstrait">Taiwan Strait</a></li>
+            <li><a href="https://trial.philotas.com/?region=copenhagen">Danish Straits</a></li>
+            <li><a href="https://trial.philotas.com/?region=kiel">Kiel Canal</a></li>
+          </ul>
+        </div>
+
+        <div class="region-cols">
+          <div class="region-group">
+            <h3>Australia &amp; NZ</h3>
+            <ul>
+              <li><a href="https://trial.philotas.com/?region=sydney">Sydney</a></li>
+              <li><a href="https://trial.philotas.com/?region=melbourne">Melbourne</a></li>
+              <li><a href="https://trial.philotas.com/?region=auckland">Auckland</a></li>
+            </ul>
+          </div>
+          <div class="region-group">
+            <h3>Europe</h3>
+            <ul>
+              <li><a href="https://trial.philotas.com/?region=rotterdam">Rotterdam</a></li>
+              <li><a href="https://trial.philotas.com/?region=hamburg">Hamburg</a></li>
+              <li><a href="https://trial.philotas.com/?region=antwerp">Antwerp</a></li>
+              <li><a href="https://trial.philotas.com/?region=piraeus">Piraeus</a></li>
+              <li><a href="https://trial.philotas.com/?region=felixstowe">Felixstowe</a></li>
+            </ul>
+          </div>
+          <div class="region-group">
+            <h3>United States</h3>
+            <ul>
+              <li><a href="https://trial.philotas.com/?region=newyork">New York</a></li>
+              <li><a href="https://trial.philotas.com/?region=losangeles">Los Angeles</a></li>
+              <li><a href="https://trial.philotas.com/?region=houston">Houston</a></li>
+              <li><a href="https://trial.philotas.com/?region=norfolk">Norfolk</a></li>
+            </ul>
+          </div>
+          <div class="region-group">
+            <h3>Middle East</h3>
+            <ul>
+              <li><a href="https://trial.philotas.com/?region=jebelali">Jebel Ali</a></li>
+              <li><a href="https://trial.philotas.com/?region=jeddah">Jeddah</a></li>
+              <li><a href="https://trial.philotas.com/?region=haifa">Haifa</a></li>
+            </ul>
+          </div>
+          <div class="region-group">
+            <h3>North East Asia</h3>
+            <ul>
+              <li><a href="https://trial.philotas.com/?region=shanghai">Shanghai</a></li>
+              <li><a href="https://trial.philotas.com/?region=busan">Busan</a></li>
+              <li><a href="https://trial.philotas.com/?region=hongkong">Hong Kong</a></li>
+              <li><a href="https://trial.philotas.com/?region=kaohsiung">Kaohsiung</a></li>
+            </ul>
+          </div>
+          <div class="region-group">
+            <h3>Wider view</h3>
+            <ul>
+              <li><a href="https://trial.philotas.com/?region=singapore">Singapore</a></li>
+              <li><a href="https://trial.philotas.com/?region=australia">Australia</a></li>
+              <li><a href="https://trial.philotas.com/?region=world">Worldwide</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p>
+      Philotas is licensed under the Apache License 2.0. Copyright Algolotl.
+      Philotas and Bluebird Philotas are trademarks.
+    </p>
+    <p>
+      <a href="https://github.com/algolotl/philotas">Repository</a> ·
+      <a href="get-started.html">Get started</a> ·
+      <a href="licensing.html">Licensing</a> ·
+      <a href="security.html">Security</a> ·
+      <a href="contributing.html">Contributing</a> ·
+      <a href="community.html">Community</a>
+    </p>
+    <p>
+      This software displays data retrieved at runtime from third-party sources, owned by their
+      respective providers, including OpenSky Network, the adsb.fi community network, CelesTrak,
+      Transport Canberra, NSW Rural Fire Service, the U.S. Geological Survey, Geoscience Australia,
+      the Australian Bureau of Meteorology, The GDELT Project, NASA JPL (Deep Space Network) and
+      NASA EONET.
+    </p>
+    <p>
+      The OpenSky Network's terms restrict its data to non-profit research and education; a live
+      operational deployment requires a written licence from OpenSky. This software treats OpenSky
+      as an opt-in, bring-your-own-credentials source and never enables it by default.
+    </p>
+    <p>
+      Fire hotspot detections are courtesy of NASA's Land, Atmosphere Near real-time Capability
+      for EOS (LANCE, https://earthdata.nasa.gov/lance), part of NASA's Earth Observing System Data
+      and Information System (EOSDIS). NASA does not endorse this product. Base map tiles © CARTO
+      and © OpenStreetMap contributors. Review each provider's terms before relying on their data.
+    </p>
+    <p>contact@bluebirdadvisory.com.au</p>
+  </div>
+</footer>
+</body>
+</html>

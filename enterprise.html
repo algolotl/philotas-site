@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise · Bluebird Philotas</title>
+  <meta name="description" content="Deploy Philotas on your cloud, on-premises, or air-gapped. Security model, implementation plan, and how it compares.">
+  <link rel="canonical" href="https://philotas.com/enterprise.html">
+  <meta property="og:title" content="Enterprise · Bluebird Philotas">
+  <meta property="og:description" content="Deploy Philotas on your cloud, on-premises, or air-gapped. Security model, implementation plan, and how it compares.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://philotas.com/enterprise.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <style>
+:root {
+    --brand: #5D4FFF;
+    --bloom: #0787D9;
+    --cyan: #7EF9FF;
+    --navy: #00294B;
+    --page: #FFFFFF;
+    --surface: #F7F9FC;
+    --raised: #EDF1FA;
+    --ink: #0F1E33;
+    --ink-2: #4A5A72;
+    --muted: #7B8CA4;
+    --border: rgba(15, 30, 51, 0.10);
+    --border-strong: rgba(15, 30, 51, 0.18);
+    --amber: #D97706;
+    --max: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "DM Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar { display: flex; align-items: center; gap: 14px; height: 64px; }
+  .mark { display: flex; align-items: center; gap: 10px; }
+  .bb-mark { width: 34px; height: 34px; flex: none; border-radius: 4px; }
+  .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .wordmark .name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+  .product {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.24em;
+    color: var(--brand); text-transform: uppercase; padding-top: 3px;
+  }
+  .wordmark:hover { text-decoration: none; }
+  .bar nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .bar nav a { color: var(--ink-2); font-size: 14px; }
+  .bar nav a:hover { color: var(--ink); text-decoration: none; }
+  .cta {
+    background: var(--brand); color: #fff !important; padding: 9px 18px;
+    border-radius: 5px; font-size: 14px; font-weight: 500;
+  }
+  .cta:hover { background: var(--bloom); text-decoration: none !important; }
+
+  section { padding: 76px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: 0; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brand); font-weight: 500; margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(34px, 5.2vw, 54px); line-height: 1.08;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 22px;
+  }
+  h2 {
+    font-size: clamp(25px, 3.4vw, 33px); line-height: 1.2;
+    letter-spacing: -0.02em; font-weight: 700; margin: 0 0 18px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 0 0 9px; letter-spacing: -0.01em; }
+  p { margin: 0 0 18px; color: var(--ink-2); max-width: 68ch; }
+  .lead { font-size: 19px; color: var(--ink); max-width: 62ch; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 26px; margin-top: 34px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 24px; }
+  .card p { font-size: 14.5px; margin-bottom: 0; }
+  .card .tag {
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brand); display: block; margin-bottom: 11px;
+  }
+
+  .tbl-scroll { overflow-x: auto; margin-top: 30px; border: 1px solid var(--border); border-radius: 7px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 560px; }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th { background: var(--raised); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td { color: var(--ink-2); }
+  td.k { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .vs td:last-child { color: var(--ink); }
+
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px;
+         background: var(--raised); padding: 1px 6px; border-radius: 3px; color: var(--bloom); }
+
+  footer.site { padding: 42px 0 58px; color: var(--muted); font-size: 13px; }
+  footer.site p { color: var(--muted); font-size: 13px; max-width: 78ch; }
+
+  .pagehead { padding: 76px 0 52px; border-bottom: 1px solid var(--border); }
+  .pagehead h1 { margin-bottom: 14px; }
+  .pagehead .lead { font-size: 19px; max-width: 62ch; }
+
+  pre {
+    background: var(--navy); color: #E7ECF6; padding: 18px 20px;
+    border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6;
+    margin: 16px 0 22px; max-width: 720px;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  .plain ul { margin: 0 0 18px; padding-left: 20px; color: var(--ink-2); }
+  .plain li { margin-bottom: 8px; }
+
+  @media (max-width: 640px) {
+    section { padding: 52px 0; }
+    .bar nav a:not(.cta) { display: none; }
+    .pagehead { padding: 52px 0 40px; }
+  }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <div class="mark">
+      <a class="wordmark" href="index.html">
+        <img class="bb-mark" src="assets/bb-logo.png" alt="Bluebird" width="34" height="34">
+        <span class="name">Bluebird</span>
+        <span class="product">Philotas</span>
+      </a>
+    </div>
+    <nav>
+      <a href="get-started.html">Get started</a>
+      <a href="index.html#capability">Capability</a>
+      <a href="index.html#ai">AI &amp; ML</a>
+      <a href="index.html#support">Support</a>
+      <a href="community.html">Community</a>
+      <a href="index.html#trial">Trial</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="eyebrow">Enterprise</div>
+    <h1>On your infrastructure</h1>
+    <p class="lead">Philotas installs on the platform you already run, in your cloud, on-premises, or air-gapped.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Deployment</h2>
+    <p>
+      Philotas is not a per-seat subscription to a vendor's data plane. It is installed on your
+      infrastructure, typically in your own cloud account, and delivered with an implementation
+      plan.
+    </p>
+    <p>
+      The plan starts with a fit assessment that maps your data: what is open, what is licensed,
+      what you already subscribe to. A proof of value runs on your data. Deployment and
+      integration connect your sources to the picture, build the workflows unique to how you
+      operate, train the operators, and take it live. After go-live, a new source or a new region
+      is configuration.
+    </p>
+    <p>
+      It sits on top of the lakehouse you already paid for. A connector is one file, against an
+      API or a lake query, and from there it flows into the cache, the snapshot store, the
+      ontology and the knowledge graph without further wiring. For networks without internet
+      access, the Enterprise tier packages Philotas for air-gapped deployment.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Security</div>
+    <h2>It inherits the security model of the platform you already run</h2>
+    <p>
+      The data platform's identity and permission plane is the source of truth. Bluebird Philotas
+      adopts it automatically, so a deployment typically needs no separate security model; it
+      uses the one you already operate. Where the lake does not already enforce access, Bluebird
+      Philotas adds its own layer, enforced server-side in SQL: roles from viewer to
+      administrator, classification labels gating visibility, and workspace-scoped access to the
+      corpus.
+    </p>
+    <p>
+      Row and column-level security across the operating picture is delivered where a deployment
+      requires it beyond what the lake provides. The audit trail records authentication, operator
+      actions, rule changes and workspace access. The adjudicating model runs against an
+      OpenAI-compatible endpoint, which can be one on your own network.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Positioning</div>
+    <h2>Measured against Palantir</h2>
+    <p>
+      Palantir is the benchmark for fusing data into an operational picture, and worth being
+      measured against on the points that decide procurements.
+    </p>
+
+    <div class="tbl-scroll">
+      <table class="vs">
+        <thead>
+          <tr><th style="width:22%"></th><th style="width:39%">Palantir</th><th style="width:39%">Bluebird Philotas</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="k">The data model</td>
+            <td>Hand-built by forward-deployed engineers over months</td>
+            <td>Induced from the sources, with each proposed link carrying a confidence score and an audit trail for a person to confirm</td>
+          </tr>
+          <tr>
+            <td class="k">Your platform</td>
+            <td>A closed data plane you buy into</td>
+            <td>Sits on the lakehouse you already own. A connector is one file, against an API or a lake query</td>
+          </tr>
+          <tr>
+            <td class="k">Time to value</td>
+            <td>Consultant-heavy deployment programmes</td>
+            <td>A bounded implementation plan on the platform you own, then a new source or city is configuration</td>
+          </tr>
+          <tr>
+            <td class="k">Engagement</td>
+            <td>Enterprise licence plus services, consultant-heavy</td>
+            <td>Implementation plan on your infrastructure, then a managed or private deployment</td>
+          </tr>
+          <tr>
+            <td class="k">Model hosting</td>
+            <td>Agents over a human-built ontology</td>
+            <td>The model that adjudicates the ontology can run on your own network, on your own hardware</td>
+          </tr>
+          <tr>
+            <td class="k">Open sources</td>
+            <td>Investigation tooling over the data you bring it</td>
+            <td>Reads the public record around every entity continuously, and surfaces connections that exist in no database you own, each traceable to the documents that produced it</td>
+          </tr>
+          <tr>
+            <td class="k">Model governance</td>
+            <td>Not separately described</td>
+            <td>Generated text is checked before it is shown: deterministic rules, then an isolated review pass that never sees the source material. Speculation is stored apart from findings and labelled</td>
+          </tr>
+          <tr>
+            <td class="k">Cost</td>
+            <td>Enterprise licence plus services</td>
+            <td>A fraction of it, deployed privately or managed</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="eyebrow">Implementation</div>
+    <h2>The plan</h2>
+    <div class="plain">
+      <ul>
+        <li>Fit assessment: map your data sources and their terms.</li>
+        <li>Proof of value: run on your data.</li>
+        <li>Integration: connect sources, build workflows, train operators.</li>
+        <li>Go-live, then a new source or region is configuration.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Contact</h2>
+    <p>
+      To discuss a deployment, email
+      <a href="mailto:contact@bluebirdadvisory.com.au">contact@bluebirdadvisory.com.au</a>.
+      See <a href="pricing.html">pricing</a> for the tiers.
+    </p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p>
+      Philotas is licensed under the Apache License 2.0. Copyright Algolotl.
+      Philotas and Bluebird Philotas are trademarks.
+    </p>
+    <p>
+      <a href="https://github.com/algolotl/philotas">Repository</a> ·
+      <a href="get-started.html">Get started</a> ·
+      <a href="licensing.html">Licensing</a> ·
+      <a href="security.html">Security</a> ·
+      <a href="contributing.html">Contributing</a> ·
+      <a href="community.html">Community</a>
+    </p>
+    <p>
+      This software displays data retrieved at runtime from third-party sources, owned by their
+      respective providers, including OpenSky Network, the adsb.fi community network, CelesTrak,
+      Transport Canberra, NSW Rural Fire Service, the U.S. Geological Survey, Geoscience Australia,
+      the Australian Bureau of Meteorology, The GDELT Project, NASA JPL (Deep Space Network) and
+      NASA EONET.
+    </p>
+    <p>
+      The OpenSky Network's terms restrict its data to non-profit research and education; a live
+      operational deployment requires a written licence from OpenSky. This software treats OpenSky
+      as an opt-in, bring-your-own-credentials source and never enables it by default.
+    </p>
+    <p>
+      Fire hotspot detections are courtesy of NASA's Land, Atmosphere Near real-time Capability
+      for EOS (LANCE, https://earthdata.nasa.gov/lance), part of NASA's Earth Observing System Data
+      and Information System (EOSDIS). NASA does not endorse this product. Base map tiles © CARTO
+      and © OpenStreetMap contributors. Review each provider's terms before relying on their data.
+    </p>
+    <p>contact@bluebirdadvisory.com.au</p>
+  </div>
+</footer>
+</body>
+</html>

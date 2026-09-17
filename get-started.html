@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get started · Bluebird Philotas</title>
+  <meta name="description" content="Run Philotas on your laptop: prerequisites, git clone, environment variables, Docker Compose, first-run setup, and the philotas-mcp server.">
+  <link rel="canonical" href="https://philotas.com/get-started.html">
+  <meta property="og:title" content="Get started · Bluebird Philotas">
+  <meta property="og:description" content="Run Philotas on your laptop: prerequisites, git clone, environment variables, Docker Compose, first-run setup, and the philotas-mcp server.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://philotas.com/get-started.html">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <style>
+:root {
+    --brand: #5D4FFF;
+    --bloom: #0787D9;
+    --cyan: #7EF9FF;
+    --navy: #00294B;
+    --page: #FFFFFF;
+    --surface: #F7F9FC;
+    --raised: #EDF1FA;
+    --ink: #0F1E33;
+    --ink-2: #4A5A72;
+    --muted: #7B8CA4;
+    --border: rgba(15, 30, 51, 0.10);
+    --border-strong: rgba(15, 30, 51, 0.18);
+    --amber: #D97706;
+    --max: 1080px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--page);
+    color: var(--ink);
+    font-family: "DM Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+
+  header.site {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+  }
+  .bar { display: flex; align-items: center; gap: 14px; height: 64px; }
+  .mark { display: flex; align-items: center; gap: 10px; }
+  .bb-mark { width: 34px; height: 34px; flex: none; border-radius: 4px; }
+  .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
+  .wordmark .name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
+  .product {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.24em;
+    color: var(--brand); text-transform: uppercase; padding-top: 3px;
+  }
+  .wordmark:hover { text-decoration: none; }
+  .bar nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
+  .bar nav a { color: var(--ink-2); font-size: 14px; }
+  .bar nav a:hover { color: var(--ink); text-decoration: none; }
+  .cta {
+    background: var(--brand); color: #fff !important; padding: 9px 18px;
+    border-radius: 5px; font-size: 14px; font-weight: 500;
+  }
+  .cta:hover { background: var(--bloom); text-decoration: none !important; }
+
+  .ribbon {
+    background: var(--navy); border-bottom: 1px solid var(--border);
+    font-size: 11px; letter-spacing: 0.11em; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.88); padding: 9px 0; text-align: center;
+  }
+
+  section { padding: 76px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: 0; }
+  section[id] { scroll-margin-top: 78px; }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--brand); font-weight: 500; margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(34px, 5.2vw, 54px); line-height: 1.08;
+    letter-spacing: -0.028em; font-weight: 700; margin: 0 0 22px;
+  }
+  h2 {
+    font-size: clamp(25px, 3.4vw, 33px); line-height: 1.2;
+    letter-spacing: -0.02em; font-weight: 700; margin: 0 0 18px;
+  }
+  h3 { font-size: 17px; font-weight: 700; margin: 0 0 9px; letter-spacing: -0.01em; }
+  p { margin: 0 0 18px; color: var(--ink-2); max-width: 68ch; }
+  .lead { font-size: 19px; color: var(--ink); max-width: 62ch; }
+  strong { color: var(--ink); font-weight: 500; }
+
+  .hero { padding: 92px 0 76px; }
+  .hero .lead { font-size: 20px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+  .btn-ghost {
+    border: 1px solid var(--border-strong); color: var(--ink); padding: 9px 18px;
+    border-radius: 5px; font-size: 14px;
+  }
+  .btn-ghost:hover { border-color: var(--brand); color: var(--brand); text-decoration: none; }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 1px;
+           background: var(--border); border: 1px solid var(--border); border-radius: 7px;
+           overflow: hidden; margin-top: 48px; }
+  .stat { background: var(--surface); padding: 20px 18px; }
+  .stat .n { font-size: 29px; font-weight: 700; letter-spacing: -0.02em; display: block; }
+  .stat .l { font-size: 12px; color: var(--muted); line-height: 1.4; display: block; margin-top: 3px; }
+
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(285px, 1fr)); gap: 26px; margin-top: 34px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 7px; padding: 24px; }
+  .card p { font-size: 14.5px; margin-bottom: 0; }
+  .card .tag {
+    font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--brand); display: block; margin-bottom: 11px;
+  }
+
+  .tbl-scroll { overflow-x: auto; margin-top: 30px; border: 1px solid var(--border); border-radius: 7px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; min-width: 560px; }
+  th, td { text-align: left; padding: 13px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  thead th { background: var(--raised); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); font-weight: 500; }
+  tbody tr:last-child td { border-bottom: 0; }
+  td { color: var(--ink-2); }
+  td.k { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .vs td:last-child { color: var(--ink); }
+
+  .note {
+    border-left: 2px solid var(--amber); background: rgba(217, 119, 6, 0.09);
+    padding: 15px 20px; border-radius: 0 5px 5px 0; margin-top: 30px;
+  }
+  .note p { margin: 0; font-size: 14.5px; }
+  .note .h { color: var(--amber); font-size: 11px; letter-spacing: 0.13em;
+             text-transform: uppercase; font-weight: 500; display: block; margin-bottom: 5px; }
+
+  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px;
+         background: var(--raised); padding: 1px 6px; border-radius: 3px; color: var(--bloom); }
+
+  .trial { background: var(--surface); border: 1px solid var(--border-strong); border-radius: 9px; padding: 40px; margin-top: 8px; }
+  .trial h2 { margin-bottom: 12px; }
+
+  .regions { margin-top: 34px; padding-top: 26px; border-top: 1px solid var(--border); }
+  .regions-lede { color: var(--muted); font-size: 14px; max-width: 68ch; margin: 0 0 22px; }
+  .region-group h3 {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase;
+    color: var(--muted); margin: 0 0 9px;
+  }
+  .region-group ul { list-style: none; margin: 0 0 22px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .region-group li { margin: 0; }
+  .region-group a {
+    display: inline-block; padding: 6px 12px; border-radius: 999px;
+    background: var(--raised); border: 1px solid var(--border);
+    color: var(--ink-2); font-size: 14px; line-height: 1.3; text-decoration: none;
+    transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+  }
+  .region-group a:hover, .region-group a:focus-visible {
+    border-color: var(--brand); color: var(--ink); background: var(--navy); text-decoration: none;
+  }
+  .region-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0 26px; }
+  @media (max-width: 640px) { .region-cols { grid-template-columns: 1fr; } }
+
+  footer.site { padding: 42px 0 58px; color: var(--muted); font-size: 13px; }
+  footer.site p { color: var(--muted); font-size: 13px; max-width: 78ch; }
+
+  .pagehead { padding: 76px 0 52px; border-bottom: 1px solid var(--border); }
+  .pagehead h1 { margin-bottom: 14px; }
+  .pagehead .lead { font-size: 19px; max-width: 62ch; }
+
+  pre {
+    background: var(--navy); color: #E7ECF6; padding: 18px 20px;
+    border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6;
+    margin: 16px 0 22px; max-width: 720px;
+  }
+  pre code { background: none; color: inherit; padding: 0; font-size: inherit; }
+
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 30px; }
+  .tier { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 26px; display: flex; flex-direction: column; }
+  .tier-name { font-size: 16px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 5px; }
+  .tier-tag { font-size: 11px; letter-spacing: 0.13em; text-transform: uppercase; color: var(--brand); font-weight: 500; margin-bottom: 16px; }
+  .tier ul { margin: 0; padding-left: 20px; color: var(--ink-2); font-size: 14.5px; }
+  .tier li { margin-bottom: 7px; }
+
+  .faq { margin-top: 26px; border-top: 1px solid var(--border); }
+  .faq details { border-bottom: 1px solid var(--border); padding: 16px 0; }
+  .faq summary { cursor: pointer; font-weight: 500; color: var(--ink); font-size: 16px; }
+  .faq summary:hover { color: var(--brand); }
+  .faq details p { margin: 10px 0 0; font-size: 15px; }
+
+  .plain ul { margin: 0 0 18px; padding-left: 20px; color: var(--ink-2); }
+  .plain li { margin-bottom: 8px; }
+
+  @media (max-width: 640px) {
+    section { padding: 52px 0; }
+    .bar nav a:not(.cta) { display: none; }
+    .trial { padding: 26px; }
+    .pagehead { padding: 52px 0 40px; }
+  }
+  </style>
+</head>
+<body>
+<header class="site">
+  <div class="wrap bar">
+    <div class="mark">
+      <a class="wordmark" href="index.html">
+        <img class="bb-mark" src="assets/bb-logo.png" alt="Bluebird" width="34" height="34">
+        <span class="name">Bluebird</span>
+        <span class="product">Philotas</span>
+      </a>
+    </div>
+    <nav>
+      <a href="get-started.html">Get started</a>
+      <a href="index.html#capability">Capability</a>
+      <a href="index.html#ai">AI &amp; ML</a>
+      <a href="index.html#support">Support</a>
+      <a href="community.html">Community</a>
+      <a href="index.html#trial">Trial</a>
+    </nav>
+  </div>
+</header>
+
+<section class="pagehead">
+  <div class="wrap">
+    <div class="eyebrow">Get started</div>
+    <h1>Run it on your laptop</h1>
+    <p class="lead">Clone the repository, install the dependencies, and start the server. The first account you register becomes the administrator.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Prerequisites</h2>
+    <p>Node.js 22 and npm. Docker is optional, for the Compose quickstart. Python 3.13 is optional, for the detection service.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Quickstart</h2>
+    <pre><code>git clone https://github.com/algolotl/philotas.git
+cd philotas
+npm install
+npm run dev</code></pre>
+    <p>Open http://localhost:8788. The map runs without a basemap key, and the app stores its data in a local file until you point it at a database.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Docker Compose</h2>
+    <pre><code>docker compose up</code></pre>
+    <p>This starts the application, ingest and Postgres. Add the detection service with <code>docker compose --profile detect up</code>.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>First run</h2>
+    <p>
+      Register an account on the sign-in screen. The first account you register becomes the
+      administrator. Accounts registered after it join as operators, and an administrator can
+      change roles and clearance levels.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Environment variables</h2>
+    <p>Every core layer is keyless. Copy the values you need into <code>.env.local</code>.</p>
+    <div class="tbl-scroll">
+      <table>
+        <thead><tr><th>Variable</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td class="k">NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</td><td>Enables the Google Maps basemap. Without it the map shows a setup card and the rest of the application still runs.</td></tr>
+          <tr><td class="k">DATABASE_URL</td><td>Postgres connection string. Without it the app uses a local JSON file under <code>.data/</code>.</td></tr>
+          <tr><td class="k">PHILOTAS_LLM_URL</td><td>OpenAI-compatible endpoint for the adjudicating model. Without it the ontology resolves with the deterministic fallback.</td></tr>
+          <tr><td class="k">FIRMS_MAP_KEY</td><td>API key for NASA FIRMS fire hotspot data.</td></tr>
+          <tr><td class="k">OPENSKY_CLIENT_ID</td><td>OpenSky OAuth2 client id. Aviation uses adsb.fi by default; OpenSky is opt-in.</td></tr>
+          <tr><td class="k">OPENSKY_CLIENT_SECRET</td><td>OpenSky OAuth2 client secret, used with the client id.</td></tr>
+          <tr><td class="k">DETECTION_URL</td><td>Address of the detection service. Defaults to http://127.0.0.1:8770.</td></tr>
+          <tr><td class="k">AG_MODEL_DIR</td><td>Directory containing a trained AutoGluon model for the detection service.</td></tr>
+          <tr><td class="k">DETECT_ENGINE</td><td><code>auto</code> (default), <code>autogluon</code>, or <code>ultralytics</code>.</td></tr>
+          <tr><td class="k">YOLO_MODEL</td><td>Path to an ultralytics model. Read only when <code>DETECT_ENGINE=ultralytics</code>.</td></tr>
+          <tr><td class="k">ALLOW_INSECURE_COOKIE</td><td>Off by default. Enable only when serving over plain HTTP on a private network.</td></tr>
+          <tr><td class="k">PHILOTAS_URL</td><td>Base URL of a running deployment, used by <code>philotas-mcp</code>.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Google Maps key</h2>
+    <p>
+      The map shows a setup card until you set <code>NEXT_PUBLIC_GOOGLE_MAPS_API_KEY</code> to a
+      Maps JavaScript API key with your domain allowed. Restart <code>npm run dev</code> after
+      setting it. The rest of the application still runs without a key.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Detection service</h2>
+    <p>
+      The detection service defaults to AutoGluon, Apache-2.0 licensed. Point <code>AG_MODEL_DIR</code>
+      at a trained AutoGluon model directory. Ultralytics YOLO is an explicit opt-in: set
+      <code>DETECT_ENGINE=ultralytics</code> and <code>YOLO_MODEL</code> to a weights path. Ultralytics
+      is AGPL-3.0 licensed, so review its terms before enabling it, and do not commit <code>.pt</code>
+      files.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>MCP server</h2>
+    <p>
+      philotas-mcp exposes read-only tools against a running deployment over the Model Context
+      Protocol. Install it with <code>npx philotas-mcp</code> and point it at a deployment with
+      <code>PHILOTAS_URL</code>.
+    </p>
+    <pre><code>npx philotas-mcp doctor</code></pre>
+    <p>
+      The <code>doctor</code> command checks that <code>PHILOTAS_URL</code> is set and that the
+      deployment answers, then prints a pass or fail per check and exits 0 or 1.
+    </p>
+
+    <h3>Claude Desktop</h3>
+    <p>Add this to <code>claude_desktop_config.json</code>:</p>
+    <pre><code>{
+  "mcpServers": {
+    "philotas": {
+      "command": "npx",
+      "args": ["philotas-mcp"],
+      "env": { "PHILOTAS_URL": "http://localhost:8788" }
+    }
+  }
+}</code></pre>
+
+    <h3>Cursor</h3>
+    <p>Add the same block to <code>.cursor/mcp.json</code>:</p>
+    <pre><code>{
+  "mcpServers": {
+    "philotas": {
+      "command": "npx",
+      "args": ["philotas-mcp"],
+      "env": { "PHILOTAS_URL": "http://localhost:8788" }
+    }
+  }
+}</code></pre>
+
+    <p>
+      philotas-mcp is read-only: it returns status, feeds, graphs, search results, alerts and
+      detections, and it scaffolds and validates connectors. It never writes back to a deployment.
+    </p>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <p>
+      Philotas is licensed under the Apache License 2.0. Copyright Algolotl.
+      Philotas and Bluebird Philotas are trademarks.
+    </p>
+    <p>
+      <a href="https://github.com/algolotl/philotas">Repository</a> ·
+      <a href="get-started.html">Get started</a> ·
+      <a href="licensing.html">Licensing</a> ·
+      <a href="security.html">Security</a> ·
+      <a href="contributing.html">Contributing</a> ·
+      <a href="community.html">Community</a>
+    </p>
+    <p>
+      This software displays data retrieved at runtime from third-party sources, owned by their
+      respective providers, including OpenSky Network, the adsb.fi community network, CelesTrak,
+      Transport Canberra, NSW Rural Fire Service, the U.S. Geological Survey, Geoscience Australia,
+      the Australian Bureau of Meteorology, The GDELT Project, NASA JPL (Deep Space Network) and
+      NASA EONET.
+    </p>
+    <p>
+      The OpenSky Network's terms restrict its data to non-profit research and education; a live
+      operational deployment requires a written licence from OpenSky. This software treats OpenSky
+      as an opt-in, bring-your-own-credentials source and never enables it by default.
+    </p>
+    <p>
+      Fire hotspot detections are courtesy of NASA's Land, Atmosphere Near real-time Capability
+      for EOS (LANCE, https://earthdata.nasa.gov/lance), part of NASA's Earth Observing System Data
+      and Information System (EOSDIS). NASA does not endorse this product. Base map tiles © CARTO
+      and © OpenStreetMap contributors. Review each provider's terms before relying on their data.
+    </p>
+    <p>contact@bluebirdadvisory.com.au</p>
+  </div>
+</footer>
+</body>
+</html>
