@@ -24,6 +24,7 @@ jobs:
           HOST="$DEPLOY_USER@$DEPLOY_HOST"
           DEST="$HOST:/site/"
           sftp -b - -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new "$HOST" <<< $'mkdir /site/assets' || true
+          sftp -b - -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new "$HOST" <<< $'mkdir /site/assets/fonts' || true
 
           # scp one file per command. Passing two source paths to a single scp
           # flattens directory structure (recorded trap) — never combine paths.
@@ -38,8 +39,20 @@ jobs:
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new 404.html "$DEST"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new robots.txt "$DEST"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new sitemap.xml "$DEST"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/mark.svg "$HOST:/site/assets/"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon.svg "$HOST:/site/assets/"
-          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/bb-logo.png "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon.ico "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon-16.png "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon-32.png "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon-48.png "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/apple-touch-icon.png "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/philotas-og.png "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/fonts.css "$HOST:/site/assets/"
+          # The self-hosted faces are separate files, so each is its own scp for
+          # the same reason as the flat files above.
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/fonts/ibm-plex-sans-latin-var.woff2 "$HOST:/site/assets/fonts/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/fonts/ibm-plex-mono-latin-400.woff2 "$HOST:/site/assets/fonts/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/fonts/ibm-plex-mono-latin-500.woff2 "$HOST:/site/assets/fonts/"
 
       - name: Verify site is live and report Last-Modified
         run: |

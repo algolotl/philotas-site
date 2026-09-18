@@ -3,32 +3,42 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Community · Bluebird Philotas</title>
+  <title>Community · Philotas</title>
   <meta name="description" content="GitHub Discussions, release cadence, and the roadmap for Philotas.">
   <link rel="canonical" href="https://philotas.com/community.html">
-  <meta property="og:title" content="Community · Bluebird Philotas">
+  <meta property="og:title" content="Community · Philotas">
   <meta property="og:description" content="GitHub Discussions, release cadence, and the roadmap for Philotas.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://philotas.com/community.html">
+  <meta property="og:site_name" content="Philotas">
+  <meta property="og:image" content="https://philotas.com/assets/philotas-og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Philotas — an open-source common operating picture">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://philotas.com/assets/philotas-og.png">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16.png">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="assets/fonts.css">
   <style>
 :root {
-    --brand: #5D4FFF;
-    --bloom: #0787D9;
-    --cyan: #7EF9FF;
-    --navy: #00294B;
+    --brand: #1B4F8A;
+    --brand-hover: #143C6B;
+    --beacon: #2E8FE0;
+    --shaft: #6FD3F2;
+    --ink: #0A1628;
+    --deep: #0E2A47;
     --page: #FFFFFF;
-    --surface: #F7F9FC;
-    --raised: #EDF1FA;
-    --ink: #0F1E33;
+    --surface: #F2F5F9;
+    --raised: #E8EDF5;
     --ink-2: #4A5A72;
     --muted: #7B8CA4;
-    --border: rgba(15, 30, 51, 0.10);
-    --border-strong: rgba(15, 30, 51, 0.18);
-    --amber: #D97706;
+    --border: rgba(10, 22, 40, 0.10);
+    --border-strong: rgba(10, 22, 40, 0.18);
+    --amber: #C87619;
     --max: 1080px;
   }
   * { box-sizing: border-box; }
@@ -37,7 +47,7 @@
     margin: 0;
     background: var(--page);
     color: var(--ink);
-    font-family: "DM Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-family: "IBM Plex Sans", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
@@ -54,12 +64,11 @@
   }
   .bar { display: flex; align-items: center; gap: 14px; height: 64px; }
   .mark { display: flex; align-items: center; gap: 10px; }
-  .bb-mark { width: 34px; height: 34px; flex: none; border-radius: 4px; }
-  .wordmark { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; }
-  .wordmark .name { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--navy); }
-  .product {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.24em;
-    color: var(--brand); text-transform: uppercase; padding-top: 3px;
+  .pm-mark { width: 30px; height: 30px; flex: none; display: block; }
+  .wordmark { display: flex; align-items: center; gap: 11px; text-decoration: none; color: inherit; }
+  .wordmark .name {
+    font-size: 19px; font-weight: 600; letter-spacing: 0.10em;
+    text-transform: uppercase; color: var(--ink);
   }
   .wordmark:hover { text-decoration: none; }
   .bar nav { margin-left: auto; display: flex; align-items: center; gap: 22px; }
@@ -69,7 +78,7 @@
     background: var(--brand); color: #fff !important; padding: 9px 18px;
     border-radius: 5px; font-size: 14px; font-weight: 500;
   }
-  .cta:hover { background: var(--bloom); text-decoration: none !important; }
+  .cta:hover { background: var(--brand-hover); text-decoration: none !important; }
 
   section { padding: 76px 0; border-bottom: 1px solid var(--border); }
   section:last-of-type { border-bottom: 0; }
@@ -107,8 +116,8 @@
   td.k { color: var(--ink); font-weight: 500; white-space: nowrap; }
   .vs td:last-child { color: var(--ink); }
 
-  code { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px;
-         background: var(--raised); padding: 1px 6px; border-radius: 3px; color: var(--bloom); }
+  code { font-family: "IBM Plex Mono", ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 13px;
+         background: var(--raised); padding: 1px 6px; border-radius: 3px; color: var(--brand); }
 
   footer.site { padding: 42px 0 58px; color: var(--muted); font-size: 13px; }
   footer.site p { color: var(--muted); font-size: 13px; max-width: 78ch; }
@@ -118,7 +127,7 @@
   .pagehead .lead { font-size: 19px; max-width: 62ch; }
 
   pre {
-    background: var(--navy); color: #E7ECF6; padding: 18px 20px;
+    background: var(--deep); color: #E7ECF6; padding: 18px 20px;
     border-radius: 7px; overflow-x: auto; font-size: 13px; line-height: 1.6;
     margin: 16px 0 22px; max-width: 720px;
   }
@@ -139,9 +148,8 @@
   <div class="wrap bar">
     <div class="mark">
       <a class="wordmark" href="index.html">
-        <img class="bb-mark" src="assets/bb-logo.png" alt="Bluebird" width="34" height="34">
-        <span class="name">Bluebird</span>
-        <span class="product">Philotas</span>
+        <img class="pm-mark" src="assets/mark.svg" alt="" width="30" height="30">
+        <span class="name">Philotas</span>
       </a>
     </div>
     <nav>
@@ -198,8 +206,8 @@
 <footer class="site">
   <div class="wrap">
     <p>
-      Philotas is licensed under the Apache License 2.0. Copyright Algolotl.
-      Philotas and Bluebird Philotas are trademarks.
+      Philotas is licensed under the Apache License 2.0. Copyright Kovacorp Pty Ltd.
+      Philotas is a trademark of Kovacorp Pty Ltd.
     </p>
     <p>
       <a href="https://github.com/algolotl/philotas">Repository</a> ·
@@ -227,7 +235,7 @@
       and Information System (EOSDIS). NASA does not endorse this product. Base map tiles © CARTO
       and © OpenStreetMap contributors. Review each provider's terms before relying on their data.
     </p>
-    <p>contact@bluebirdadvisory.com.au</p>
+    <p><a href="mailto:hello@philotas.com">hello@philotas.com</a></p>
   </div>
 </footer>
 </body>
