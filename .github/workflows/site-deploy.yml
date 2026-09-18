@@ -25,6 +25,10 @@ jobs:
           DEST="$HOST:/site/"
           sftp -b - -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new "$HOST" <<< $'mkdir /site/assets' || true
           sftp -b - -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new "$HOST" <<< $'mkdir /site/assets/fonts' || true
+          # Retired assets. scp only ever adds, so without this a file dropped
+          # from the repo keeps being served forever; bb-logo.png was still
+          # public after the rebrand for exactly that reason.
+          sftp -b - -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new "$HOST" <<< $'rm /site/assets/bb-logo.png' || true
 
           # scp one file per command. Passing two source paths to a single scp
           # flattens directory structure (recorded trap) — never combine paths.
@@ -40,6 +44,7 @@ jobs:
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new robots.txt "$DEST"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new sitemap.xml "$DEST"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/mark.svg "$HOST:/site/assets/"
+          scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/mark-reverse.svg "$HOST:/site/assets/"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon.svg "$HOST:/site/assets/"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon.ico "$HOST:/site/assets/"
           scp -i ~/.ssh/id_deploy -o StrictHostKeyChecking=accept-new assets/favicon-16.png "$HOST:/site/assets/"
